@@ -1,3 +1,5 @@
+<?php include 'config/core.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
