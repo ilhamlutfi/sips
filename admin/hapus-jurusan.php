@@ -15,4 +15,3 @@ if (hapus_jurusan($id_jurusan) > 0) {
                 document.location.href = 'data-jurusan.php';
              </script>";
 }
-

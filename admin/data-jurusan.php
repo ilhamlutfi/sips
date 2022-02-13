@@ -4,7 +4,7 @@ $title = 'Data Jurusan'; // judul halaman
 
 include 'layout/header.php'; // panggil file layout/header.php
 
-// menampilkan seluruh data dari tbl_jurusan
+// menampilkan seluruh data dari tbl_jurusan berdasarkan data terbaru
 $data_jurusan = query("SELECT * FROM tbl_jurusan ORDER BY id_jurusan DESC");
 
 // ketika tombol tambah di tekan jalankan script berikut
@@ -19,6 +19,21 @@ if (isset($_POST['tambah'])) {
                 alert('Data Jurusan Gagal Ditambahkan');
                 document.location.href = 'data-jurusan.php';
              </script>";
+    }
+}
+
+// ketika tombol ubah di tekan jalankan script berikut
+if (isset($_POST['ubah'])) {
+    if (ubah_jurusan($_POST) > 0) {
+        echo "<script>
+            alert('Data Jurusan Berhasil Diubah'); 
+            document.location.href = 'data-jurusan.php';
+            </script>";
+    } else {
+        echo "<script>
+            alert('Data Jurusan Gagal Diubah');
+            document.location.href = 'data-jurusan.php';
+            </script>";
     }
 }
 
@@ -43,7 +58,7 @@ if (isset($_POST['tambah'])) {
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th width="1%">No</th>
                             <th>Nama Jurusan</th>
                             <th>Tanggal Ditambahkan</th>
                             <th>Fungsi</th>
@@ -58,7 +73,7 @@ if (isset($_POST['tambah'])) {
                                 <td><?= $jurusan['nama_jurusan']; ?></td>
                                 <td><?= date('d/m/Y | H:s:i', strtotime($jurusan['tanggal_input'])); ?></td>
                                 <td width="15%" class="text-center">
-                                    <a href="" class="btn btn-success btn-sm mb-1" title="Ubah"><i class="fas fa-edit"></i> Ubah</a>
+                                    <button type="button" class="btn btn-success btn-sm mb-1" title="Ubah" data-toggle="modal" data-target="#modalUbah<?= $jurusan['id_jurusan']; ?>"><i class="fas fa-edit"></i> Ubah</button>
 
                                     <a href="hapus-jurusan.php?id_jurusan=<?= $jurusan['id_jurusan']; ?>" class="btn btn-danger btn-sm mb-1" title="Hapus" onclick="return confirm('Yakin Data Jurusan Akan Dihapus');"><i class="fas fa-trash-alt"></i> Hapus</a>
 
@@ -87,7 +102,7 @@ if (isset($_POST['tambah'])) {
                     <form action="" method="post">
                         <div class="form-group">
                             <label for="nama_jurusan">Nama Jurusan</label>
-                            <input type="text" name="nama_jurusan" id="nama_jurusan" class="form-control">
+                            <input type="text" name="nama_jurusan" id="nama_jurusan" class="form-control" required minlength="5">
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -98,5 +113,35 @@ if (isset($_POST['tambah'])) {
             </div>
         </div>
     </div>
+
+    <!-- Modal Ubah -->
+    <?php foreach ($data_jurusan as $jurusan) : ?>
+        <div class="modal fade" id="modalUbah<?= $jurusan['id_jurusan']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> Ubah Jurusan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post">
+                            <input type="hidden" name="id_jurusan" value="<?= $jurusan['id_jurusan']; ?>">
+
+                            <div class="form-group">
+                                <label for="nama_jurusan">Nama Jurusan</label>
+                                <input type="text" name="nama_jurusan" id="nama_jurusan" class="form-control" required minlength="5" value="<?= $jurusan['nama_jurusan']; ?>">
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Kembali</button>
+                        <button type="submit" name="ubah" class="btn btn-success btn-sm">Ubah</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
 
     <?php include 'layout/footer.php'; ?>

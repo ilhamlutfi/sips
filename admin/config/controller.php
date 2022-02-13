@@ -44,3 +44,20 @@ function hapus_jurusan($id_jurusan)
     // check data yang dihapus
     return mysqli_affected_rows($db);
 }
+
+// ubah data jurusan di database
+function ubah_jurusan($post)
+{
+   global $db;
+   
+   $id_jurusan      = $post['id_jurusan'];
+   $nama_jurusan    = strip_tags($post['nama_jurusan']);
+
+   $query = "UPDATE tbl_jurusan SET nama_jurusan = '$nama_jurusan' WHERE id_jurusan = $id_jurusan";
+
+    // simpan query ke database
+    mysqli_query($db, $query);
+
+    // check data yang diubah
+    return mysqli_affected_rows($db);
+}
