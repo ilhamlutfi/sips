@@ -59,9 +59,9 @@
             </div>
 
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="data-pendaftaran.php">
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Data Pendaftar</span></a>
+                    <span>Data Pendaftaran</span></a>
             </li>
 
             <li class="nav-item">
