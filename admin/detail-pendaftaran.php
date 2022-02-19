@@ -6,7 +6,8 @@ include 'layout/header.php';
 
 $id_pendaftaran = (int)$_GET['id_pendaftaran'];
 
-$data_pendaftaran = query("SELECT * FROM tbl_pendaftaran WHERE id_pendaftaran = '$id_pendaftaran'")[0];
+// pilih semua dari tabel pendaftaran join dengan jurusan
+$data_pendaftaran = query("SELECT * FROM tbl_pendaftaran JOIN tbl_jurusan ON tbl_pendaftaran.jurusan_id = tbl_jurusan.id_jurusan WHERE id_pendaftaran = '$id_pendaftaran'")[0];
 
 ?>
 
@@ -35,7 +36,7 @@ $data_pendaftaran = query("SELECT * FROM tbl_pendaftaran WHERE id_pendaftaran = 
 
                     <tr>
                         <th>Jurusan</th>
-                        <td>: <?= $data_pendaftaran['jurusan_id']; ?></td>
+                        <td>: <?= $data_pendaftaran['nama_jurusan']; ?></td>
                         <th>Alamat</th>
                         <td>: <?= $data_pendaftaran['alamat']; ?></td>
                     </tr>

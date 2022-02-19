@@ -21,7 +21,8 @@ $data_pendaftaran = query('SELECT * FROM tbl_pendaftaran ORDER BY id_pendaftaran
             <h6 class="m-0 font-weight-bold text-primary">Daftar Data Pendaftaran</h6>
         </div>
         <div class="card-body">
-            <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" data-target="#modalTambah"> <i class="fas fa-plus"></i> Tambah</button>
+
+            <a href="tambah-pendaftaran.php" class="btn btn-primary btn-sm mb-2"><i class="fas fa-plus"></i> Tambah</a>
 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -69,4 +70,4 @@ $data_pendaftaran = query('SELECT * FROM tbl_pendaftaran ORDER BY id_pendaftaran
     <!-- /body -->
 </div>
 
-    <?php include 'layout/footer.php'; ?>
+<?php include 'layout/footer.php'; ?>

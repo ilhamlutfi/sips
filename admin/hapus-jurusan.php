@@ -5,13 +5,13 @@ require 'config/core.php';
 $id_jurusan = (int)$_GET['id_jurusan'];
 
 if (hapus_jurusan($id_jurusan) > 0) {
-    echo "<script>
-                alert('Data Jurusan Berhasil Dihapus'); 
-                document.location.href = 'data-jurusan.php';
-             </script>";
+    $_SESSION['hapus'] = true;
+    $_SESSION['timeout'] = time();
+
+    header('Location:data-jurusan.php');
 } else {
-    echo "<script>
-                alert('Data Jurusan Gagal Dihapus');
-                document.location.href = 'data-jurusan.php';
-             </script>";
+    $_SESSION['gagal-hapus'] = true;
+    $_SESSION['timeout'] = time();
+
+    header('Location:data-jurusan.php');
 }

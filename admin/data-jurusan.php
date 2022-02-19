@@ -10,32 +10,47 @@ $data_jurusan = query("SELECT * FROM tbl_jurusan ORDER BY id_jurusan DESC");
 // ketika tombol tambah di tekan jalankan script berikut
 if (isset($_POST['tambah'])) {
     if (tambah_jurusan($_POST) > 0) {
-        echo "<script>
-                alert('Data Jurusan Berhasil Ditambahkan'); 
-                document.location.href = 'data-jurusan.php';
-             </script>";
+        $_SESSION['tambah'] = true;
+        $_SESSION['timeout'] = time();
+
+        header('Location:data-jurusan.php');
     } else {
-        echo "<script>
-                alert('Data Jurusan Gagal Ditambahkan');
-                document.location.href = 'data-jurusan.php';
-             </script>";
+        $_SESSION['gagal-tambah'] = true;
+        $_SESSION['timeout'] = time();
+
+        header('Location:data-jurusan.php');
     }
 }
 
 // ketika tombol ubah di tekan jalankan script berikut
 if (isset($_POST['ubah'])) {
     if (ubah_jurusan($_POST) > 0) {
-        echo "<script>
-            alert('Data Jurusan Berhasil Diubah'); 
-            document.location.href = 'data-jurusan.php';
-            </script>";
+        $_SESSION['ubah'] = true;
+        $_SESSION['timeout'] = time();
+
+        header('Location:data-jurusan.php');
     } else {
-        echo "<script>
-            alert('Data Jurusan Gagal Diubah');
-            document.location.href = 'data-jurusan.php';
-            </script>";
+        $_SESSION['gagal-ubah'] = true;
+        $_SESSION['timeout'] = time();
+
+        header('Location:data-jurusan.php');
     }
 }
+
+
+// hapus alert session alert setelah 1 detik
+if (isset($_SESSION['timeout'])) {
+    if (time() - $_SESSION['timeout'] > 1) {
+        // deklerasikan session yg ingin dihapus
+        unset($_SESSION['tambah']);
+        unset($_SESSION['gagal-tambah']);
+        unset($_SESSION['ubah']);
+        unset($_SESSION['gagal-ubah']);
+        unset($_SESSION['hapus']);
+        unset($_SESSION['gagal-hapus']);
+    }
+}
+
 
 ?>
 
@@ -53,6 +68,26 @@ if (isset($_POST['ubah'])) {
         </div>
         <div class="card-body">
             <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" data-target="#modalTambah"> <i class="fas fa-plus"></i> Tambah</button>
+            
+            <?php if (isset($_SESSION['tambah'])) : ?>
+                <?= alert('Data Jurusan Berhasil Ditambahkan', 'success'); ?>
+
+            <?php elseif (isset($_SESSION['gagal-tambah'])) : ?>
+                <?= alert('Data Jurusan Gagal Ditambahkan', 'danger'); ?>
+
+            <?php elseif (isset($_SESSION['ubah'])) : ?>
+                <?= alert('Data Jurusan Berhasil Diubah', 'success'); ?>
+
+            <?php elseif (isset($_SESSION['gagal-ubah'])) : ?>
+                <?= alert('Data Jurusan Gagal Diubah', 'danger'); ?>
+
+            <?php elseif (isset($_SESSION['hapus'])) : ?>
+                <?= alert('Data Jurusan Berhasil Dihapus', 'success'); ?>
+
+            <?php elseif (isset($_SESSION['gagal-hapus'])) : ?>
+                <?= alert('Data Jurusan Gagal Dihapus', 'danger'); ?>
+            <?php endif; ?>
+
 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
