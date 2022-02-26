@@ -54,7 +54,7 @@ $data_pendaftaran = query('SELECT * FROM tbl_pendaftaran ORDER BY id_pendaftaran
                                 <td width="15%" class="text-center">
                                     <a href="detail-pendaftaran.php?id_pendaftaran=<?= $pendaftaran['id_pendaftaran']; ?>" class="btn btn-secondary btn-sm mb-1" title="Detail"><i class="fas fa-eye"></i></a>
 
-                                    <button type="button" class="btn btn-success btn-sm mb-1" title="Ubah" data-toggle="modal" data-target="#modalUbah<?= $pendaftaran['id_pendaftaran']; ?>"><i class="fas fa-edit"></i></button>
+                                    <a href="ubah-pendaftaran.php?id_pendaftaran=<?= $pendaftaran['id_pendaftaran']; ?>" class="btn btn-success btn-sm mb-1" title="Ubah"><i class="fas fa-edit"></i></a>
 
                                     <button type="button" class="btn btn-danger btn-sm mb-1" title="Hapus" data-toggle="modal" data-target="#modalHapus<?= $pendaftaran['id_pendaftaran']; ?>"><i class="fas fa-trash-alt"></i></button>
 

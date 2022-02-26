@@ -106,6 +106,39 @@ function tambah_pendaftaran($post)
 
 }
 
+// ubah pendaftaran
+function ubah_pendaftaran($post)
+{
+    global $db;
+
+    $jurusan_id     = strip_tags($post['jurusan_id']);
+    $nisn           = strip_tags($post['nisn']);
+    $nama           = strip_tags($post['nama']);
+    $alamat         = strip_tags($post['alamat']);
+    $tempat         = strip_tags($post['tempat']);
+    $tanggal_lahir  = strip_tags($post['tanggal_lahir']);
+    $asal_sekolah   = strip_tags($post['asal_sekolah']);
+    $nama_ortu      = strip_tags($post['nama_ortu']);
+    $pekerjaan_ortu = strip_tags($post['pekerjaan_ortu']);
+    $no_telepon     = strip_tags($post['no_telepon']);
+    $id_pendaftaran = strip_tags($post['id_pendaftaran']);
+    $fileLama       = strip_tags($post['fileLama']);
+
+    // check file diubah atau tidak
+    if ($_FILES['file']['error'] === 4) {
+        $file = $fileLama; // jika tidak diubah pakai file lama
+    } else {
+        $file = upload_file(); // jika merubah file upload file yang baru
+    }
+
+    // query ubah ke database
+    $query = "UPDATE tbl_pendaftaran SET jurusan_id = '$jurusan_id', nisn = '$nisn', nama = '$nama', alamat = '$alamat', tempat = '$tempat', tanggal_lahir = '$tanggal_lahir', asal_sekolah = '$asal_sekolah', nama_ortu = '$nama_ortu', pekerjaan_ortu = '$pekerjaan_ortu', no_telepon = '$no_telepon', file = '$file' WHERE id_pendaftaran = $id_pendaftaran";
+
+    mysqli_query($db, $query);
+
+    return mysqli_affected_rows($db);
+}
+
 // fungsi upload
 function upload_file()
 {
