@@ -56,7 +56,7 @@ $data_pendaftaran = query('SELECT * FROM tbl_pendaftaran ORDER BY id_pendaftaran
 
                                     <button type="button" class="btn btn-success btn-sm mb-1" title="Ubah" data-toggle="modal" data-target="#modalUbah<?= $pendaftaran['id_pendaftaran']; ?>"><i class="fas fa-edit"></i></button>
 
-                                    <a href="hapus-pendaftaran.php?id_pendaftaran=<?= $pendaftaran['id_pendaftaran']; ?>" class="btn btn-danger btn-sm mb-1" title="Hapus" onclick="return confirm('Yakin Data pendaftaran Akan Dihapus');"><i class="fas fa-trash-alt"></i></a>
+                                    <button type="button" class="btn btn-danger btn-sm mb-1" title="Hapus" data-toggle="modal" data-target="#modalHapus<?= $pendaftaran['id_pendaftaran']; ?>"><i class="fas fa-trash-alt"></i></button>
 
                                 </td>
                             </tr>
@@ -69,5 +69,30 @@ $data_pendaftaran = query('SELECT * FROM tbl_pendaftaran ORDER BY id_pendaftaran
     </div>
     <!-- /body -->
 </div>
+
+<!-- Modal Hapus -->
+<?php foreach ($data_pendaftaran as $pendaftaran) : ?>
+    <div class="modal fade" id="modalHapus<?= $pendaftaran['id_pendaftaran']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash-alt"></i> Hapus Data Pendaftaran</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Yakin Data Pendaftar Dengan Nama : <b><?= $pendaftaran['nama']; ?></b>, Akan Dihapus.?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
+                    <a href="hapus-pendaftaran.php?id_pendaftaran=<?= $pendaftaran['id_pendaftaran']; ?>" class="btn btn-danger btn-sm">Hapus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
 
 <?php include 'layout/footer.php'; ?>

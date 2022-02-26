@@ -145,3 +145,17 @@ function upload_file()
     move_uploaded_file($tmpName, 'assets/file/' . $namaFilebaru);
     return $namaFilebaru;
 }
+
+// hapus pendaftaran
+function hapus_pendaftaran($id_pendaftaran)
+{
+    global $db;
+
+    $query = "DELETE FROM tbl_pendaftaran WHERE id_pendaftaran = $id_pendaftaran";
+
+    // simpan query ke database
+    mysqli_query($db, $query);
+
+    // check data yang dihapus
+    return mysqli_affected_rows($db);
+}
