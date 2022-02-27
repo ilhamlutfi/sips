@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2022 at 05:32 AM
+-- Generation Time: Feb 27, 2022 at 09:30 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.24
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `sips`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_akun`
+--
+
+CREATE TABLE `tbl_akun` (
+  `id_akun` int(11) NOT NULL,
+  `nama` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `email` varchar(20) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `level` varchar(10) DEFAULT NULL,
+  `tanggal_register` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_akun`
+--
+
+INSERT INTO `tbl_akun` (`id_akun`, `nama`, `username`, `email`, `password`, `level`, `tanggal_register`) VALUES
+(2, 'Ilham Lutfi', 'admin', 'ilham@gmail.com', '$2y$10$lJOCd4y8Q4J9emLHpvtcCeoI6JvuEnxmZ15IRiTAaxwfJV.q/6976', '1', '2022-02-27 07:19:32'),
+(3, 'putra 1', 'putra 1', 'putra1@gmail.com', '$2y$10$UB78czDirNYdsqPfvmgVpupwhUk9B4Qx9n1cv4SddgXj.bkUAxar.', '0', '2022-02-27 08:25:58');
 
 -- --------------------------------------------------------
 
@@ -71,12 +95,19 @@ CREATE TABLE `tbl_pendaftaran` (
 --
 
 INSERT INTO `tbl_pendaftaran` (`id_pendaftaran`, `jurusan_id`, `nisn`, `nama`, `alamat`, `tempat`, `tanggal_lahir`, `asal_sekolah`, `nama_ortu`, `pekerjaan_ortu`, `no_telepon`, `file`, `tanggal_daftar`) VALUES
-(3, '134', '123456700', 'Putra', 'Kayuara Sekayu', 'Kayuara', '2022-02-01', 'SMP N 2 SEKAYU', 'Tono Budiman', 'PNS', '086765452323', '62109d5d71d8e.pdf', '2022-02-19 07:35:24'),
-(4, '133', '2135128', 'Putri', 'Sekayu', 'Betung', '2022-02-08', 'SMK BETUNG', 'Budiono', 'Wiraswasta', '082373737312', '6219ad4e91580.pdf', '2022-02-26 04:32:14');
+(3, '134', '123456700', 'Putra 1', 'Kayuara Sekayu', 'Kayuara', '2022-02-01', 'SMP N 2 SEKAYU', 'Tono Budiman', 'PNS', '086765452323', '62109d5d71d8e.pdf', '2022-02-27 02:19:04'),
+(4, '133', '2135128', 'Putri', 'Sekayu', 'Betung', '2022-02-08', 'SMK BETUNG', 'Budiono', 'Wiraswasta', '082373737312', '6219ad4e91580.pdf', '2022-02-26 04:32:14'),
+(6, '121', '131231', 'edo 1', 'Sekayu 1', 'Bandung 1', '2022-02-21', 'SMA BANDUNG 1', 'Saptono 1', 'Petani1', '097219838912731', '6219e5c3c0e4c.pdf', '2022-02-26 08:35:24');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tbl_akun`
+--
+ALTER TABLE `tbl_akun`
+  ADD PRIMARY KEY (`id_akun`);
 
 --
 -- Indexes for table `tbl_jurusan`
@@ -95,6 +126,12 @@ ALTER TABLE `tbl_pendaftaran`
 --
 
 --
+-- AUTO_INCREMENT for table `tbl_akun`
+--
+ALTER TABLE `tbl_akun`
+  MODIFY `id_akun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `tbl_jurusan`
 --
 ALTER TABLE `tbl_jurusan`
@@ -104,7 +141,7 @@ ALTER TABLE `tbl_jurusan`
 -- AUTO_INCREMENT for table `tbl_pendaftaran`
 --
 ALTER TABLE `tbl_pendaftaran`
-  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pendaftaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

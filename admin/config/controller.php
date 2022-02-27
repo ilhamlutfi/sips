@@ -192,3 +192,58 @@ function hapus_pendaftaran($id_pendaftaran)
     // check data yang dihapus
     return mysqli_affected_rows($db);
 }
+
+// tambah akun
+function tambah_akun($post)
+{
+    global $db;
+
+    $nama       = strip_tags($post['nama']);
+    $username   = strip_tags($post['username']);
+    $email      = strip_tags($post['email']);
+    $password   = strip_tags($post['password']);
+    $level      = strip_tags($post['level']);
+
+    // fungsi hash atau enkripsi password
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO tbl_akun VALUES(null, '$nama', '$username', '$email', '$password', '$level', CURRENT_TIMESTAMP)";
+
+    mysqli_query($db, $query);
+
+    return mysqli_affected_rows($db);
+}
+
+// ubah akun
+function ubah_akun($post)
+{
+    global $db;
+
+    $nama       = strip_tags($post['nama']);
+    $username   = strip_tags($post['username']);
+    $email      = strip_tags($post['email']);
+    $password   = strip_tags($post['password']);
+    $level      = strip_tags($post['level']);
+    $id_akun    = strip_tags($post['id_akun']);
+
+    // fungsi hash atau enkripsi password
+    $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "UPDATE tbl_akun SET nama = '$nama', username = '$username', email = '$email', password = '$password', level = '$level' WHERE id_akun = $id_akun";
+
+    mysqli_query($db, $query);
+
+    return mysqli_affected_rows($db);
+}
+
+// hapus akun
+function hapus_akun($id_akun)
+{
+    global $db;
+
+    $query = "DELETE FROM tbl_akun WHERE id_akun = $id_akun";
+
+    mysqli_query($db, $query);
+
+    return mysqli_affected_rows($db);
+}

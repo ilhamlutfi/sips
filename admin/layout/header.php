@@ -72,7 +72,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="data-akun.php">
                     <i class="fas fa-fw fa-user-cog"></i>
                     <span>Akun</span></a>
             </li>
