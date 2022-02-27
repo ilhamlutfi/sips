@@ -24,6 +24,8 @@ $data_pendaftaran = query('SELECT * FROM tbl_pendaftaran ORDER BY id_pendaftaran
 
             <a href="tambah-pendaftaran.php" class="btn btn-primary btn-sm mb-2"><i class="fas fa-plus"></i> Tambah</a>
 
+            <a href="download-laporan.php" class="btn btn-warning btn-sm mb-2 float-right"><i class="fas fa-download"></i> Download Laporan</a>
+
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
