@@ -1,42 +1,37 @@
 <?php
 
-// panggil file config/core.php
 include 'config/core.php';
 
+// Check session jika sudah login lempar ke dashboard kembali
+if (isset($_SESSION["login"])) {
+    header("Location: index.php");
+    exit;
+}
 
-// jika tombol login ditekan jalankan script berikut
 if (isset($_POST['login'])) {
-    // ambil input username dan password user
     $username = mysqli_real_escape_string($db, $_POST['username']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
 
-    // check input username ada atau tidak 
-    $hasil = mysqli_query($db, "SELECT * FROM tbl_akun WHERE username = '$username'");
+    $result = mysqli_query($db, "SELECT * FROM tbl_akun WHERE username = '$username'");
 
-    // jika input username benar
-    if (mysqli_num_rows($hasil) === 1) {
+    //check username
+    if (mysqli_num_rows($result) === 1) {
+        //check password
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($password, $row["password"])) {
+            // set session
+            $_SESSION["login"]      = true;
+            $_SESSION["id_akun"]    = $row["id_akun"];
+            $_SESSION["nama"]       = $row["nama"];
+            $_SESSION["username"]   = $row["username"];
+            $_SESSION["level"]      = $row["level"];
 
-        $kolom = mysqli_fetch_assoc($hasil);
-
-        // check input password dari user
-        if (password_verify($password, $kolom['password'])) {
-
-            // jika password benar set session dan arahkan ke dashboard
-            $_SESSION['login']      = true;
-            $_SESSION['id_akun']    = $kolom['id_akun'];
-            $_SESSION['nama']       = $kolom['nama'];
-            $_SESSION['username']   = $kolom['username'];
-            $_SESSION['level']      = $kolom['level'];
-
-            header("Location: index.php"); // arahkan ke file index.php
+            header("Location: index.php");
             exit;
         }
     }
-
-    // jika login salah set error true
     $error = true;
 }
-
 
 ?>
 
@@ -94,14 +89,14 @@ if (isset($_POST['login'])) {
                                             <i><b>Username / Password SALAH</b></i>
                                         </div>
                                     <?php endif; ?>
-                                    
+
                                     <form class="user" action="" method="POST">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" name="username" placeholder="Username...">
+                                            <input type="text" class="form-control form-control-user" name="username" placeholder="Username..." required>
                                         </div>
 
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" name="password" placeholder="Password...">
+                                            <input type="password" class="form-control form-control-user" name="password" placeholder="Password..." required>
                                         </div>
 
                                         <button type="submit" name="login" class="btn btn-primary btn-user btn-block">

@@ -1,5 +1,16 @@
 <?php
 
+session_start();
+
+// check login jika gagal lempar kembali ke login.php
+if (!isset($_SESSION["login"])) {
+    echo "<script>
+            alert('Anda harus login terlebih dahulu');
+            document.location.href = 'login.php';
+          </script>";
+    exit;
+}
+
 $title = 'Data Akun'; // judul halaman
 
 include 'layout/header.php'; // panggil file layout/header.php
@@ -52,7 +63,9 @@ if (isset($_POST['ubah'])) {
             <h6 class="m-0 font-weight-bold text-primary">Daftar Data Akun</h6>
         </div>
         <div class="card-body">
-            <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" data-target="#modalTambah"> <i class="fas fa-plus"></i> Tambah</button>
+            <?php if($level == 1) : ?>
+                <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" data-target="#modalTambah"> <i class="fas fa-plus"></i> Tambah</button>
+            <?php endif; ?>
 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

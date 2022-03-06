@@ -1,13 +1,15 @@
 <?php
 
-    // check login jika gagal lempar kembali ke login.php
-    if (!isset($_SESSION["login"])) {
-        echo "<script>
+session_start();
+
+// check login jika gagal lempar kembali ke login.php
+if (!isset($_SESSION["login"])) {
+    echo "<script>
             alert('Anda harus login terlebih dahulu');
             document.location.href = 'login.php';
           </script>";
-        exit;
-    }
+    exit;
+}
 
 $title = 'Data Jurusan'; // judul halaman
 
@@ -77,7 +79,7 @@ if (isset($_SESSION['timeout'])) {
         </div>
         <div class="card-body">
             <button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" data-target="#modalTambah"> <i class="fas fa-plus"></i> Tambah</button>
-            
+
             <?php if (isset($_SESSION['tambah'])) : ?>
                 <?= alert('Data Jurusan Berhasil Ditambahkan', 'success'); ?>
 

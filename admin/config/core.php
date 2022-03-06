@@ -1,5 +1,4 @@
 <?php
-ob_start();
 error_reporting(1); // mematikan pesan error
 
 session_start();

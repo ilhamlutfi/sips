@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // check login jika gagal lempar kembali ke login.php
 if (!isset($_SESSION["login"])) {
     echo "<script>
@@ -29,7 +31,6 @@ $total_akun = query("SELECT * FROM tbl_akun");
 
     <!-- Content Row -->
     <div class="row">
-
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
